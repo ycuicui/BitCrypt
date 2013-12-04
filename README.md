@@ -1,5 +1,5 @@
-BitScript
-=========
+BitCrypt
+========
 
 Description
 -----------

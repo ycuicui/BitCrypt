@@ -382,5 +382,4 @@ public class ECDSASigner implements ECCurve {
 
 		return r;
 	}
-
 }

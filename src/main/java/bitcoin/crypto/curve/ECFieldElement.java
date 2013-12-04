@@ -117,5 +117,4 @@ public class ECFieldElement implements ECCurve {
 	public String toString() {
 		return value.toString();
 	}
-
 }
