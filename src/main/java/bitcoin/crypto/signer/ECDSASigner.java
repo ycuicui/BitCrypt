@@ -354,7 +354,7 @@ public class ECDSASigner implements ECCurve {
 	/**
 	 * Shamir's trick to Compute k*P + l*Q
 	 */
-	// TODO tester vitesse par rapport au calcul direct!
+	// TODO Test speed compare to direct computation
 	@NonNull
 	private static ECPoint sumOfTwoMultiplies(@NonNull final ECPoint ptP,
 			@NonNull final BigInteger k, @NonNull final ECPoint ptQ,

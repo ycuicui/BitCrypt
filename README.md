@@ -55,7 +55,6 @@ This package provides an utility class to:
 * Sign a message
 * Verify a signature
 * Recover a public key from a signature
-* Recover a message hash from a signature
 
 Licensing
 ---------
