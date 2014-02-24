@@ -1,5 +1,5 @@
 /**
- * Copyright 2013 Yves Cuillerdier.
+ * Copyright 2014 Yves Cuillerdier.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import jsr305.Nullable;
 import bitcoin.crypto.utils.BigIntegerUtils;
 
 /**
- * Unmutable class for points on the bitcoin {@link ECCurve elliptic curve}.
+ * Immutable class for points on the bitcoin {@link ECCurve elliptic curve}.
  * 
  * @author Yves Cuillerdier <ycuicui@cuillerdier.net>
  */

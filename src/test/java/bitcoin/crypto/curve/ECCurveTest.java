@@ -69,4 +69,31 @@ public class ECCurveTest implements ECCurve {
 
 		Assert.assertEquals(pm1, p3.multiply(three));
 	}
+
+	@Test
+	public void testPm3Mod4() {
+		final BigInteger four = BigInteger.valueOf(4);
+		final BigInteger pm3 = P.subtract(BigInteger.valueOf(3L));
+		final BigInteger p4 = pm3.divide(four);
+
+		Assert.assertEquals(pm3, p4.multiply(four));
+	}
+
+	@Test
+	public void testPm1Mod6() {
+		final BigInteger six = BigInteger.valueOf(6);
+		final BigInteger pm1 = P.subtract(BigInteger.valueOf(1L));
+		final BigInteger p6 = pm1.divide(six);
+
+		Assert.assertEquals(pm1, p6.multiply(six));
+	}
+
+	@Test
+	public void testPm7Mod9() {
+		final BigInteger nine = BigInteger.valueOf(9);
+		final BigInteger pm7 = P.subtract(BigInteger.valueOf(7L));
+		final BigInteger p9 = pm7.divide(nine);
+
+		Assert.assertEquals(pm7, p9.multiply(nine));
+	}
 }

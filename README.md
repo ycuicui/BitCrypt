@@ -32,6 +32,10 @@ This package provides classes for the Bitcoin elliptic curve
 * The ECFieldElement class represents elements of the field of Bitcoin EC points coordinates
 * The ECPoint class represents points on the Elliptic curve.
 
+All major operations on field elements are available, including square and cube roots.
+
+Notice that some features are still "incubating", -i.e are not fully validated and not for production uses.
+
 ### BitCrypt.key
 
 This package provides classes related to public and private keys as well as utilities to encode/decode keys.
