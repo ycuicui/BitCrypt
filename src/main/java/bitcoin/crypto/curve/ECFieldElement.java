@@ -56,14 +56,14 @@ public class ECFieldElement implements ECCurve {
 	@NonNull
 	public final BigInteger value;
 
-	public ECFieldElement(long val) {
+	public ECFieldElement(final long val) {
 		this(BigInteger.valueOf(val));
 	}
 
 	public ECFieldElement(@NonNull final BigInteger val) {
 		if (val.compareTo(BigInteger.ZERO) < 0) {
 			throw new IllegalArgumentException(
-					"Negative value  in field element"); //$NON-NLS-1$
+					"Negative value in field element"); //$NON-NLS-1$
 		}
 		if (val.compareTo(P) >= 0) {
 			throw new IllegalArgumentException(
@@ -108,7 +108,7 @@ public class ECFieldElement implements ECCurve {
 	}
 
 	@NonNull
-	public ECFieldElement pow(BigInteger exp) {
+	public ECFieldElement pow(final BigInteger exp) {
 		return new ECFieldElement(value.modPow(exp, P));
 	}
 

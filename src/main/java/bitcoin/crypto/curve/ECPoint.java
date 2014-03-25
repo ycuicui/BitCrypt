@@ -35,20 +35,25 @@ public class ECPoint implements ECCurve {
 	private static final ECFieldElement THREE = new ECFieldElement(
 			BigInteger.valueOf(3));
 
-	// Only null for infinity
-	@Nullable
+	/**
+	 * Previous version set x and y to null for point at infinity, but this
+	 * smell! For the bitcoin curve, there is NO point with y=0 (-7 is not a
+	 * cube), and similarly, there is NO point for x=0 (7 is not a square). Then
+	 * we choose to represents infinity with a point of coordinate (0,0).
+	 * Indeed, this is not a valid EC point!
+	 * <p>
+	 */
+	@NonNull
 	private final ECFieldElement x;
-
-	// Only null for infinity
-	@Nullable
+	@NonNull
 	private final ECFieldElement y;
 
 	/**
-	 * Create the infinity point
+	 * Create the infinity point O
 	 */
 	ECPoint() {
-		x = null;
-		y = null;
+		x = ECFieldElement.ZERO;
+		y = ECFieldElement.ZERO;
 	}
 
 	/**
@@ -125,8 +130,8 @@ public class ECPoint implements ECCurve {
 				throw new IllegalArgumentException("Invalid point encoding"); //$NON-NLS-1$
 			}
 
-			x = null;
-			y = null;
+			x = ECFieldElement.ZERO;
+			y = ECFieldElement.ZERO;
 			break;
 		// compressed
 		case 0x02:
@@ -178,7 +183,8 @@ public class ECPoint implements ECCurve {
 	}
 
 	public boolean isInfinity() {
-		return x == null && y == null;
+		// We don't use &&
+		return x.value.signum() == 0 || y.value.signum() == 0;
 	}
 
 	@NonNull
@@ -336,8 +342,8 @@ public class ECPoint implements ECCurve {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (x == null ? 0 : x.hashCode());
-		result = prime * result + (y == null ? 0 : y.hashCode());
+		result = prime * result + x.hashCode();
+		result = prime * result + y.hashCode();
 		return result;
 	}
 

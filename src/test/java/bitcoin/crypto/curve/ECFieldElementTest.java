@@ -21,9 +21,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import bitcoin.crypto.curve.ECCurve;
-import bitcoin.crypto.curve.ECFieldElement;
-
 /**
  * @author Yves Cuillerdier <ycuicui@cuillerdier.net>
  */
@@ -98,6 +95,17 @@ public class ECFieldElementTest implements ECCurve {
 				FIELD_SIZE, SECURE_RANDOM).mod(P));
 
 		Assert.assertFalse(elem.equals(elem.value));
+	}
+
+	/**
+	 * sqrt(7) does not exists, so there is no point with x=0
+	 */
+	@Test
+	public void testSqrt7() {
+		final ECFieldElement seven = new ECFieldElement(BigInteger.valueOf(7L));
+		final ECFieldElement sqrt7 = seven.sqrt();
+
+		Assert.assertNull(sqrt7);
 	}
 
 	/**

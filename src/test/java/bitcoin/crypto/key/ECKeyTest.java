@@ -52,9 +52,6 @@ public class ECKeyTest {
 		final ECKey key = new ECKey();
 		final BigInteger priv = key.getPrivateKey();
 		Assert.assertNotNull(priv);
-		if (priv == null) {
-			return;
-		}
 
 		// Key from private
 		final ECKey key2 = new ECKey(priv);
