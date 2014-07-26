@@ -97,18 +97,45 @@ public class DumpedPrivateKey extends VersionedChecksummedBytes {
 	 *            the private key. Note we provide an ECKey, not a BigInteger to
 	 *            ensure the value is >0 and <N
 	 * @param comp
-	 *            wether the adresse is from a compressed public key
+	 *            Whether the key is for a compressed public key
 	 */
 	public DumpedPrivateKey(final boolean prodNetwork, final ECKey key,
 			final boolean comp) {
-		super(prodNetwork ? PROD_VERSION : TEST_VERSION, new byte[comp ? 33
-				: 32]);
-		compressed = comp;
+		this(prodNetwork, getKeyBytes(key), comp);
+	}
+
+	@NonNull
+	private static byte[] getKeyBytes(final ECKey key) {
 		final BigInteger priv = key.getPrivateKey();
 		if (priv == null) {
-			throw new IllegalArgumentException("Key has no private key value"); //$NON-NLS-1$
+			throw new IllegalArgumentException("Key has no private value"); //$NON-NLS-1$
 		}
-		System.arraycopy(BigIntegerUtils.integerToBytes(priv), 0, bytes, 0, 32);
+		return BigIntegerUtils.integerToBytes(priv);
+	}
+
+	/**
+	 * Prepare a private key to be dumped;
+	 * <p>
+	 * When exported to a file, consider to Crypt the file.
+	 * 
+	 * @param prodNetwork
+	 *            {@code true} for production, {@code false} for testing
+	 * @param privBytes
+	 *            the private key bytes. Must be 32 bytes long.
+	 * @param comp
+	 *            Whether the key is for a compressed public key
+	 */
+	public DumpedPrivateKey(final boolean prodNetwork,
+			@NonNull final byte[] privBytes, final boolean comp) {
+		super(prodNetwork ? PROD_VERSION : TEST_VERSION, new byte[comp ? 33
+				: 32]);
+
+		if (privBytes.length != 32) {
+			throw new IllegalArgumentException("Bad length for private key"); //$NON-NLS-1$
+		}
+
+		compressed = comp;
+		System.arraycopy(privBytes, 0, bytes, 0, 32);
 		if (compressed) {
 			bytes[32] = (byte) 0x01;
 		}
